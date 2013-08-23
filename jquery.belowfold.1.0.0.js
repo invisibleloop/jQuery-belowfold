@@ -39,25 +39,21 @@
 			src: 'http://i.imgur.com/wXvoL9C.png',
 			options.offset: 0,
 			autoPosition: true
-		}, options);
-
-		var selector = this;
+		}, options),
+		selector = this,
+		scrolled = false;
 		
 		/* 	minimum delay is 5 seconds as some browsers load the page
 		 *  and then scroll to last viewed position, therefore always
 		 *  setting scrollTop() to zero.
 		 */
-		
-		if ( options.delay < 5000 ) {
-			options.delay = 5000;
-		}
+
+		options.delay = ( options.delay < 5000 ) ? 5000 : options.delay;
 		
 		/* 	stop pop up from appearing if the user has already scrolled then refreshes 
 		 *	browser or on initial scroll of window
 		 */
-		 
-		var scrolled = false;
-		
+		 		
 		$(window).one('scroll.belowfold', function(){
 			scrolled = true;
 			if ( scrolled ) {
@@ -71,11 +67,11 @@
 				$(selector).css({position:'relative'});
 			}
 			
-			var scrollTop = $(window).scrollTop();
-			var windowHeight = $(window).height();
-			var selectorWidth = $(selector).width();
-			var selectoroptions.offset = $(selector).options.offset();
-			var documentHeight = $(document).height();
+			var scrollTop = $(window).scrollTop(),
+				windowHeight = $(window).height(),
+				selectorWidth = $(selector).width(),
+				selectoroptions.offset = $(selector).options.offset(),
+				documentHeight = $(document).height();
 			
 			if ( ( ( scrollTop + windowHeight ) - documentHeight < -(options.height + options.offset) ) && ( !scrolled ) ) {
 			
@@ -108,8 +104,8 @@
 			
 			$(window).bind('resize.belowfold',function(){
 				
-				var selectorNewWidth = ( Math.floor( $(selector).width() / 2 ) ) - ( Math.floor( options.width / 2 ) );
-				var newWindowHeight = ( $(window).height() + $(window).scrollTop() ) - ( options.height + options.bottom );
+				var selectorNewWidth = ( Math.floor( $(selector).width() / 2 ) ) - ( Math.floor( options.width / 2 ) ),
+					newWindowHeight = ( $(window).height() + $(window).scrollTop() ) - ( options.height + options.bottom );
 				
 				if ( newWindowHeight > documentHeight ) {
 				
