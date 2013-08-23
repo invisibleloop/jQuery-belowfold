@@ -36,7 +36,7 @@
 			zIndex: 1000,
 			fadeIn: 500,
 			fadeOut: 500,
-			src: 'down-arrow.png',
+			src: 'http://i.imgur.com/wXvoL9C.png',
 			offset: '0px',
 			autoPosition: true
 		};
