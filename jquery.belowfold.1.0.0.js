@@ -17,7 +17,7 @@
  * If using an id selector, the element must have css position: relative;
  *
  * Tested in IE 6, 7, 8, 9 / firefox 3.6.11, 5, 7 / chrome 6, 7 / safari 4, 5
- * Requires jQuery v 1.4.x
+ * Requires jQuery v 1.10.x
  * 
  */
  
