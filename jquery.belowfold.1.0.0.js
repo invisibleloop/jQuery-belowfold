@@ -27,36 +27,29 @@
 	
 		/* 	set defaults */
 		
-		var defaults = {
+		var options = $.extend({
 			delay: 5000,
 			duration: 5000,
-			width: '183px',
-			height: '48px',
-			bottom: '20px',
+			width: 183,
+			height: 48,
+			bottom: 20,
 			zIndex: 1000,
 			fadeIn: 500,
 			fadeOut: 500,
 			src: 'http://i.imgur.com/wXvoL9C.png',
-			offset: '0px',
+			options.offset: 0,
 			autoPosition: true
-		};
-		
-		var options = $.extend(defaults, options);
+		}, options);
+
 		var selector = this;
-		 
-		var imgWidth = parseFloat( (options.width).replace(/[A-z]/ig, '') );
-		var imgHeight = parseFloat( (options.height).replace(/[A-z]/ig, '') );
-		var posBottom = parseFloat( (options.bottom).replace(/[A-z]/ig, '') );
-		var offset = parseFloat( (options.offset).replace(/[A-z]/ig, '') );
 		
 		/* 	minimum delay is 5 seconds as some browsers load the page
 		 *  and then scroll to last viewed position, therefore always
 		 *  setting scrollTop() to zero.
 		 */
 		
-		var delay = 5000;
-		if ( options.delay > delay ) {
-			delay = options.delay;
+		if ( options.delay < 5000 ) {
+			options.delay = 5000;
 		}
 		
 		/* 	stop pop up from appearing if the user has already scrolled then refreshes 
@@ -81,25 +74,25 @@
 			var scrollTop = $(window).scrollTop();
 			var windowHeight = $(window).height();
 			var selectorWidth = $(selector).width();
-			var selectorOffset = $(selector).offset();
+			var selectoroptions.offset = $(selector).options.offset();
 			var documentHeight = $(document).height();
 			
-			if ( ( ( scrollTop + windowHeight ) - documentHeight < -(imgHeight + offset) ) && ( !scrolled ) ) {
+			if ( ( ( scrollTop + windowHeight ) - documentHeight < -(options.height + options.offset) ) && ( !scrolled ) ) {
 			
 				$(selector).append('<div id="belowfold-popup"></div>');
 				
 				$('#belowfold-popup').css({
 					background: 'url('+ options.src +') center center no-repeat',
 					cursor: 'pointer',
-					width: imgWidth + 'px',
-					height: imgHeight + 'px',
+					width: options.width + 'px',
+					height: options.height + 'px',
 					opacity: 0,
 					zIndex: options.zIndex,
 					position: 'absolute',
-					left: ( Math.floor( selectorWidth / 2 ) ) - ( Math.floor( imgWidth / 2 ) ),
-					top: ( windowHeight + scrollTop + imgHeight ) + 'px'
+					left: ( Math.floor( selectorWidth / 2 ) ) - ( Math.floor( options.width / 2 ) ),
+					top: ( windowHeight + scrollTop + options.height ) + 'px'
 				}).animate({
-					top: ( windowHeight + scrollTop - Math.floor( selectorOffset.top ) ) - ( imgHeight + posBottom ) + 'px',
+					top: ( windowHeight + scrollTop - Math.floor( selectoroptions.offset.top ) ) - ( options.height + options.bottom ) + 'px',
 					opacity: '1'
 				},options.fadeIn).delay(options.duration).animate({
 					opacity: '0'
@@ -115,8 +108,8 @@
 			
 			$(window).bind('resize.belowfold',function(){
 				
-				var selectorNewWidth = ( Math.floor( $(selector).width() / 2 ) ) - ( Math.floor( imgWidth / 2 ) );
-				var newWindowHeight = ( $(window).height() + $(window).scrollTop() ) - ( imgHeight + posBottom );
+				var selectorNewWidth = ( Math.floor( $(selector).width() / 2 ) ) - ( Math.floor( options.width / 2 ) );
+				var newWindowHeight = ( $(window).height() + $(window).scrollTop() ) - ( options.height + options.bottom );
 				
 				if ( newWindowHeight > documentHeight ) {
 				
@@ -139,7 +132,7 @@
 				$('#belowfold-popup').stop().animate({opacity:'0'});
 			});
 			
-		}, delay);
+		}, options.delay);
 
 	};
 	
